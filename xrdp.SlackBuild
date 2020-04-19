@@ -23,7 +23,7 @@
 . ../../slack-package.conf
 
 NAME=xrdp
-VERSION=0.5.0
+VERSION=0.6.2
 BUILD=${BUILD:-1}
 
 TMP=${TMP:-/tmp}
@@ -34,7 +34,7 @@ if [ ! -e $TMP ]; then
   mkdir -p $TMP # location to build the source
 fi
 
-SRC=$TMP/${NAME}
+SRC=$TMP/${NAME}-${VERSION}
 if [ -e $SRC -a -d $SRC ]; then
   echo "Source directory '$SRC' already exists! Plaese, move it or remove it."
   exit 1
@@ -72,6 +72,9 @@ CXXFLAGS="$SLKCFLAGS" \
             --mandir=/usr/man \
             --enable-shared=yes \
             --enable-static=no || exit 6
+# Fails to compile agains FreeRDP 1.2.0.beta1 with lot of errors
+#           --enable-freerdp 
+#           --enable-freerdp1
 
 # Build & install
 make -j4 || exit 7
