@@ -1,0 +1,126 @@
+#!/bin/sh
+#
+# Slackware build script for xrdp
+# Copyright (C) 2020  Georgi D. Sotirov <gdsotirov@gmail.com>
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Visit SlackPack at http://sotirov-bg.net/slackpack/
+#
+
+. ../../slack-package.conf
+
+NAME=xrdp
+VERSION=0.5.0
+BUILD=${BUILD:-1}
+
+TMP=${TMP:-/tmp}
+CWD=${CWD:-`pwd`}
+PKG_DIR=${PKG_DIR:-/tmp}
+
+if [ ! -e $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+
+SRC=$TMP/${NAME}
+if [ -e $SRC -a -d $SRC ]; then
+  echo "Source directory '$SRC' already exists! Plaese, move it or remove it."
+  exit 1
+fi
+
+PKG=$TMP/package-${NAME}
+if [ -e $PKG -a -d $PKG ]; then
+  echo "Package creation directory '$PKG' already exists! Please, move it or remove it."
+  exit 2
+fi
+mkdir -p $PKG
+
+# Extract the source
+cd $TMP
+tar -xvf $CWD/${NAME}-${VERSION}.tar.gz || exit 3
+cd $SRC
+fix_source
+
+# Apply patch
+if [ -e $CWD/${NAME}-${VERSION}.diff ]; then
+  patch -p1 -b -z.orig < $CWD/${NAME}-${VERSION}.diff || exit 4
+fi
+
+# Configure
+autoreconf -vif || exit 5
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+./configure --build=${ARCH}-slackware-linux \
+            --host=${ARCH}-slackware-linux \
+            --prefix=/usr \
+            --libdir=/usr/lib${LIBDIRSUFFIX} \
+            --sysconfdir=/etc \
+            --localstatedir=/var \
+            --docdir=/usr/doc \
+            --mandir=/usr/man \
+            --enable-shared=yes \
+            --enable-static=no || exit 6
+
+# Build & install
+make -j4 || exit 7
+make DESTDIR=$PKG install || exit 8
+# Move init script in the right place
+install -m 755 -d $PKG/etc/rc.d
+install -m 644 -p $PKG/etc/${NAME}/xrdp.sh $PKG/etc/rc.d/rc.${NAME}.new
+rm $PKG/etc/${NAME}/xrdp.sh
+# Avoid clobbering configuration files
+for ini_file in $PKG/etc/${NAME}/*.ini; do
+  mv "${ini_file}" "${ini_file}.new"
+done
+# Create log directory
+install -m 755 -d $PKG/var/log
+
+# Prepare the package
+bin_perms $PKG
+sbin_perms $PKG
+( cd $PKG; strip_bin; strip_lib )
+gzip_man $PKG
+create_docs $PKG ${NAME}-${VERSION}
+
+install -m 755 -d $PKG/install
+install -m 644 -p $CWD/doinst.sh      $PKG/install/doinst.sh
+install -m 644 -p $CWD/slack-desc     $PKG/install/slack-desc
+install -m 644 -p $CWD/slack-required $PKG/install/slack-required
+
+SBDIR=$PKG/usr/src/slackbuilds/${NAME}-${VERSION}
+install -m 755 -d $SBDIR
+install -m 644 -p $CWD/doinst.sh               $SBDIR/doinst.sh
+install -m 644 -p $CWD/slack-desc              $SBDIR/slack-desc
+install -m 644 -p $CWD/slack-required          $SBDIR/slack-required
+if [ -e $CWD/${NAME}-${VERSION}.diff ]; then
+install -m 644 -p $CWD/${NAME}-${VERSION}.diff $SBDIR/${NAME}-${VERSION}.diff
+fi
+install -m 644 -p $CWD/${NAME}.SlackBuild      $SBDIR/${NAME}.SlackBuild
+
+# Create package
+cd $PKG
+PKGNAME=${NAME}-${VERSION}-${ARCH}-${BUILD}${MYIN}
+makepkg -l y -c n $PKG_DIR/${PKGNAME}.txz
+( cd $PKG_DIR
+  md5sum ${PKGNAME}.txz > ${PKGNAME}.txz.md5
+  cat $PKG/install/slack-desc > $PKG_DIR/${PKGNAME}.txt
+)
+
+# Clean Up
+if [ "$1" == "--cleanup" ]; then
+  rm -r $SRC
+  rm -r $PKG
+fi
+
