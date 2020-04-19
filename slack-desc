@@ -1,11 +1,11 @@
-xrdp: xrdp (An open source Remote Desktop Protocol server for Linux)
+xrdp: xrdp (an open source RDP server for Linux)
 xrdp:
-xrdp: An open source RDP server and X server capable of accepting connections
-xrdp: from rdesktop and ms terminal server clients.
+xrdp: xrdp provides a graphical login to remote machines using Microsoft
+xrdp: Remote Desktop Protocol (RDP). xrdp accepts connections from a variety
+xrdp: of RDP clients: FreeRDP, rdesktop, NeutrinoRDP and Microsoft Remote
+xrdp: Desktop Client (for Windows, Mac OS, iOS and Android).
 xrdp:
-xrdp:
-xrdp:
-xrdp:
+xrdp: RDP transport is encrypted using TLS by default.
 xrdp:
 xrdp:
 xrdp: Packaged by Georgi D. Sotirov <gdsotirov@gmail.com>
