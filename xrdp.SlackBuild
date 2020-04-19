@@ -93,6 +93,8 @@ sbin_perms $PKG
 ( cd $PKG; strip_bin; strip_lib )
 gzip_man $PKG
 create_docs $PKG ${NAME}-${VERSION}
+# Install README as not provided
+install -m 644 $CWD/README.in $PKG/usr/doc/${NAME}-${VERSION}/README
 
 install -m 755 -d $PKG/install
 install -m 644 -p $CWD/doinst.sh      $PKG/install/doinst.sh
@@ -101,6 +103,9 @@ install -m 644 -p $CWD/slack-required $PKG/install/slack-required
 
 SBDIR=$PKG/usr/src/slackbuilds/${NAME}-${VERSION}
 install -m 755 -d $SBDIR
+install -m 644 -p $CWD/COPYING                 $SBDIR/COPYING
+install -m 644 -p $CWD/README                  $SBDIR/README
+install -m 644 -p $CWD/README.in               $SBDIR/README.in
 install -m 644 -p $CWD/doinst.sh               $SBDIR/doinst.sh
 install -m 644 -p $CWD/slack-desc              $SBDIR/slack-desc
 install -m 644 -p $CWD/slack-required          $SBDIR/slack-required
