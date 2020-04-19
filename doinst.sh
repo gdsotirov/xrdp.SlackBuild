@@ -11,6 +11,13 @@ config() {
   # Otherwise, we leave the .new copy for the admin to consider...
 }
 
+# Keep same perms on rc.xrdp.new:
+if [ -e etc/rc.d/rc.xrdp ]; then
+  cp -a etc/rc.d/rc.xrdp etc/rc.d/rc.xrdp.new.incoming
+  cat etc/rc.d/rc.xrdp.new > etc/rc.d/rc.xrdp.new.incoming
+  mv etc/rc.d/rc.xrdp.new.incoming etc/rc.d/rc.xrdp.new
+fi
+
 config etc/rc.d/rc.xrdp.new
 config etc/xrdp/km-0407.ini.new
 config etc/xrdp/km-0409.ini.new
