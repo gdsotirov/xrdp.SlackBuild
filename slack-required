@@ -1,8 +1,8 @@
-glibc-solibs >= 2.15
-libX11 >= 1.5.0
-libXau >= 1.0.7
+glibc-solibs >= 2.17
+libX11 >= 1.6.2
+libXau >= 1.0.8
 libXdmcp >= 1.1.1
-libXfixes >= 5.0
-libxcb >= 1.8.1
-linux-pam >= 1.1.8
-openssl >= 1.0.1c | openssl-solibs >= 1.0.1c
+libXfixes >= 5.0.1
+libxcb >= 1.9.1
+linux-pam >= 1.2.1
+openssl >= 1.0.1e | openssl-solibs >= 1.0.1e
