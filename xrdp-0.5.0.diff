@@ -1,0 +1,49 @@
+# Patch for 0.5.0 to fix problems and adjust configuration
+# - Fix sbin dir in init script
+diff -urNad xrdp-orig/instfiles/xrdp.sh xrdp/instfiles/xrdp.sh
+--- xrdp-orig/instfiles/xrdp.sh	2011-08-13 05:14:14.000000000 +0300
++++ xrdp/instfiles/xrdp.sh	2020-04-19 12:24:37.059767282 +0300
+@@ -5,7 +5,7 @@
+ # chkconfig: 2345 11 89
+ # description: starts xrdp
+ 
+-SBINDIR=/usr/local/sbin
++SBINDIR=/usr/sbin
+ LOG=/dev/null
+ CFGDIR=/etc/xrdp
+ 
+# - Adjust session manager configuration
+diff -urNad xrdp-orig/sesman/sesman.ini xrdp/sesman/sesman.ini
+--- xrdp-orig/sesman/sesman.ini	2011-08-13 18:15:15.000000000 +0300
++++ xrdp/sesman/sesman.ini	2020-04-19 11:26:55.275753991 +0300
+@@ -6,7 +6,7 @@
+ DefaultWindowManager=startwm.sh
+ 
+ [Security]
+-AllowRootLogin=1
++AllowRootLogin=0
+ MaxLoginRetry=4
+ TerminalServerUsers=tsusers
+ TerminalServerAdmins=tsadmins
+@@ -19,7 +19,7 @@
+ 
+ [Logging]
+ LogFile=/var/log/xrdp-sesman.log
+-LogLevel=DEBUG
++LogLevel=INFO
+ EnableSyslog=0
+ SyslogLevel=DEBUG
+ 
+# - Fix make issue
+diff -urNad xrdp-orig/sesman/tools/Makefile.am xrdp/sesman/tools/Makefile.am
+--- xrdp-orig/sesman/tools/Makefile.am	2011-08-13 18:15:15.000000000 +0300
++++ xrdp/sesman/tools/Makefile.am	2020-04-19 11:16:55.601000220 +0300
+@@ -18,7 +18,7 @@
+ xrdp_sesrun_SOURCES = \
+   sesrun.c \
+   tcp.c \
+-  config.c
++  ../config.c
+ 
+ xrdp_sestest_SOURCES = \
+   sestest.c
