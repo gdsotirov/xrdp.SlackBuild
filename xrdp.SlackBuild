@@ -101,6 +101,9 @@ make DESTDIR=$PKG install || exit 8
 install -m 755 -d $PKG/etc/rc.d
 install -m 644 -p $CWD/rc.${NAME} $PKG/etc/rc.d/rc.${NAME}.new
 rm -rf $PKG/etc/init.d
+# Remove generated certificate, key and security keys
+# These would be generated on package installation
+( cd $PKG/etc/${NAME}; rm -f cert.pem key.pem rsakeys.ini )
 # Avoid clobbering configuration files
 for ini_file in $PKG/etc/${NAME}/*.ini; do
   mv "${ini_file}" "${ini_file}.new"
@@ -144,7 +147,7 @@ install -m 644 -p $CWD/${NAME}.SlackBuild      $SBDIR/${NAME}.SlackBuild
 # Create package
 cd $PKG
 PKGNAME=${NAME}-${VERSION}-${ARCH}-${BUILD}${MYIN}
-makepkg -l y -c n $PKG_DIR/${PKGNAME}.txz
+makepkg -l y -c n -p $PKG_DIR/${PKGNAME}.txz
 ( cd $PKG_DIR
   md5sum ${PKGNAME}.txz > ${PKGNAME}.txz.md5
   cat $PKG/install/slack-desc > $PKG_DIR/${PKGNAME}.txt
