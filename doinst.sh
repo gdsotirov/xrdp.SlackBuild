@@ -45,9 +45,22 @@ config etc/xrdp/km-0000100c.ini.new
 config etc/xrdp/km-00010409.ini.new
 config etc/xrdp/pulse/default.pa.new
 config etc/xrdp/reconnectwm.sh.new
-config etc/xrdp/rsakeys.ini.new
 config etc/xrdp/sesman.ini.new
 config etc/xrdp/startwm.sh.new
 config etc/xrdp/xrdp.ini.new
 config etc/xrdp/xrdp_keyboard.ini.new
+
+# Generate security keys, certificate and key
+# Based on keygen/Makefile.am
+# See https://github.com/neutrinolabs/xrdp/blob/1c4e14415d923666ac60cb77c7e753ca24e0268d/keygen/Makefile.am#L20
+umask 077 && \
+if [ ! -f etc/xrdp/rsakeys.ini ]; then \
+  xrdp-keygen xrdp auto; \
+fi && \
+if [ ! -f etc/xrdp/cert.pem ]; then \
+  openssl req -x509 -newkey rsa:2048 -sha256 -nodes \
+  -keyout etc/xrdp/key.pem -out etc/xrdp/cert.pem -days 365 \
+  -subj /C=US/ST=CA/L=Sunnyvale/O=xrdp/CN=www.xrdp.org \
+  -config /etc/ssl/openssl.cnf; \
+fi
 
