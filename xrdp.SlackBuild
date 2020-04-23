@@ -112,8 +112,8 @@ done
   mv pulse/default.pa pulse/default.pa.new
   mv reconnectwm.sh reconnectwm.sh.new 
   mv startwm.sh startwm.sh.new )
-( cd $PKG/etc/default; mv xrdp xrdp.new )
-( cd $PKG/etc/pam.d; mv xrdp-sesman xrdp-sesman.new )
+( cd $PKG/etc/default; mv ${NAME} ${NAME}.new )
+( cd $PKG/etc/pam.d; mv ${NAME}-sesman ${NAME}-sesman.new )
 # Create log directory
 install -m 755 -d $PKG/var/log
 
@@ -131,6 +131,7 @@ install -m 755 -d $PKG/install
 install -m 644 -p $CWD/doinst.sh      $PKG/install/doinst.sh
 install -m 644 -p $CWD/slack-desc     $PKG/install/slack-desc
 install -m 644 -p $CWD/slack-required $PKG/install/slack-required
+install -m 644 -p $CWD/slack-suggests $PKG/install/slack-suggests
 
 SBDIR=$PKG/usr/src/slackbuilds/${NAME}-${VERSION}
 install -m 755 -d $SBDIR
@@ -139,6 +140,7 @@ install -m 644 -p $CWD/README                  $SBDIR/README
 install -m 644 -p $CWD/doinst.sh               $SBDIR/doinst.sh
 install -m 644 -p $CWD/slack-desc              $SBDIR/slack-desc
 install -m 644 -p $CWD/slack-required          $SBDIR/slack-required
+install -m 644 -p $CWD/slack-suggests          $SBDIR/slack-suggests
 if [ -e $CWD/${NAME}-${VERSION}.diff ]; then
 install -m 644 -p $CWD/${NAME}-${VERSION}.diff $SBDIR/${NAME}-${VERSION}.diff
 fi
