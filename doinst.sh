@@ -18,6 +18,7 @@ if [ -e etc/rc.d/rc.xrdp ]; then
   mv etc/rc.d/rc.xrdp.new.incoming etc/rc.d/rc.xrdp.new
 fi
 
+config etc/pam.d/xrdp-sesman.new
 config etc/rc.d/rc.xrdp.new
 config etc/xrdp/km-0407.ini.new
 config etc/xrdp/km-0409.ini.new
@@ -27,5 +28,6 @@ config etc/xrdp/km-0419.ini.new
 config etc/xrdp/km-041d.ini.new
 config etc/xrdp/rsakeys.ini.new
 config etc/xrdp/sesman.ini.new
+config etc/xrdp/startwm.sh.new
 config etc/xrdp/xrdp.ini.new
 
