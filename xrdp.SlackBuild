@@ -84,6 +84,8 @@ rm $PKG/etc/${NAME}/xrdp.sh
 for ini_file in $PKG/etc/${NAME}/*.ini; do
   mv "${ini_file}" "${ini_file}.new"
 done
+( cd $PKG/etc/${NAME}; mv startwm.sh startwm.sh.new )
+( cd $PKG/etc/pam.d; mv ${NAME}-sesman ${NAME}-sesman.new )
 # Create log directory
 install -m 755 -d $PKG/var/log
 
@@ -100,6 +102,7 @@ install -m 755 -d $PKG/install
 install -m 644 -p $CWD/doinst.sh      $PKG/install/doinst.sh
 install -m 644 -p $CWD/slack-desc     $PKG/install/slack-desc
 install -m 644 -p $CWD/slack-required $PKG/install/slack-required
+install -m 644 -p $CWD/slack-suggests $PKG/install/slack-suggests
 
 SBDIR=$PKG/usr/src/slackbuilds/${NAME}-${VERSION}
 install -m 755 -d $SBDIR
@@ -109,6 +112,7 @@ install -m 644 -p $CWD/README.in               $SBDIR/README.in
 install -m 644 -p $CWD/doinst.sh               $SBDIR/doinst.sh
 install -m 644 -p $CWD/slack-desc              $SBDIR/slack-desc
 install -m 644 -p $CWD/slack-required          $SBDIR/slack-required
+install -m 644 -p $CWD/slack-suggests          $SBDIR/slack-suggests
 if [ -e $CWD/${NAME}-${VERSION}.diff ]; then
 install -m 644 -p $CWD/${NAME}-${VERSION}.diff $SBDIR/${NAME}-${VERSION}.diff
 fi
