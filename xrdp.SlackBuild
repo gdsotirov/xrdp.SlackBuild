@@ -113,7 +113,11 @@ done
   mv reconnectwm.sh reconnectwm.sh.new 
   mv startwm.sh startwm.sh.new )
 ( cd $PKG/etc/default; mv ${NAME} ${NAME}.new )
-( cd $PKG/etc/pam.d; mv ${NAME}-sesman ${NAME}-sesman.new )
+# Replace default PAM configuration for xrdp-sesman
+# See https://github.com/neutrinolabs/xrdp/issues/1558
+( cd $PKG/etc/pam.d
+  rm ${NAME}-sesman
+  install -m 644 $CWD/pam.d/${NAME}-sesman $PKG/etc/pam.d/${NAME}-sesman.new )
 # Create log directory
 install -m 755 -d $PKG/var/log
 
