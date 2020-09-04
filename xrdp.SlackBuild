@@ -116,6 +116,9 @@ done
   mv reconnectwm.sh reconnectwm.sh.new 
   mv startwm.sh startwm.sh.new )
 ( cd $PKG/etc/default; mv ${NAME} ${NAME}.new )
+# Rename PAM configuration file to .new
+( cd $PKG/etc/pam.d
+  mv ${NAME}-sesman ${NAME}-sesman.new )
 # Create log directory
 install -m 755 -d $PKG/var/log
 
