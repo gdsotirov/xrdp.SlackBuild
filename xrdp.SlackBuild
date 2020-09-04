@@ -23,7 +23,7 @@
 . ../../slack-package.conf
 
 NAME=xrdp
-VERSION=0.9.13.1
+VERSION=0.9.14
 BUILD=${BUILD:-1}
 ARCH=${ARCH:-i586}
 
@@ -113,11 +113,6 @@ done
   mv reconnectwm.sh reconnectwm.sh.new 
   mv startwm.sh startwm.sh.new )
 ( cd $PKG/etc/default; mv ${NAME} ${NAME}.new )
-# Replace default PAM configuration for xrdp-sesman
-# See https://github.com/neutrinolabs/xrdp/issues/1558
-( cd $PKG/etc/pam.d
-  rm ${NAME}-sesman
-  install -m 644 -p $CWD/pam.d/${NAME}-sesman $PKG/etc/pam.d/${NAME}-sesman.new )
 # Create log directory
 install -m 755 -d $PKG/var/log
 
