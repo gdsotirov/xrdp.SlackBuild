@@ -1,9 +1,8 @@
-# Patch for 0.9.13 to adjust configuration
+# Patch for 0.9.14 to adjust configuration
 # - Adjust session manager logging configuration
-diff -urNad xrdp-0.9.13-orig/xrdp/xrdp.ini xrdp-0.9.13/xrdp/xrdp.ini
-diff -urNad xrdp-0.9.13-orig/sesman/sesman.ini xrdp-0.9.13/sesman/sesman.ini
---- xrdp-0.9.13-orig/sesman/sesman.ini	2020-03-11 06:40:19.000000000 +0200
-+++ xrdp-0.9.13/sesman/sesman.ini	2020-04-20 10:15:46.054314657 +0300
+diff -urNad xrdp-0.9.14-orig/sesman/sesman.ini xrdp-0.9.14/sesman/sesman.ini
+--- xrdp-0.9.14-orig/sesman/sesman.ini	2020-08-31 09:33:40.000000000 +0300
++++ xrdp-0.9.14/sesman/sesman.ini	2020-09-04 18:50:47.321472138 +0300
 @@ -12,7 +12,7 @@
  ReconnectScript=reconnectwm.sh
  
@@ -25,10 +24,9 @@ diff -urNad xrdp-0.9.13-orig/sesman/sesman.ini xrdp-0.9.13/sesman/sesman.ini
  
  ;
  ; Session definitions - startup command-line parameters for each session type
-# - Adjust xrdp logging configuration
-diff -urNad xrdp-0.9.13-orig/xrdp/xrdp.ini xrdp-0.9.13/xrdp/xrdp.ini
---- xrdp-0.9.13-orig/xrdp/xrdp.ini	2020-03-11 06:40:19.000000000 +0200
-+++ xrdp-0.9.13/xrdp/xrdp.ini	2020-04-20 10:14:50.515920695 +0300
+diff -urNad xrdp-0.9.14-orig/xrdp/xrdp.ini xrdp-0.9.14/xrdp/xrdp.ini
+--- xrdp-0.9.14-orig/xrdp/xrdp.ini	2020-08-31 09:33:40.000000000 +0300
++++ xrdp-0.9.14/xrdp/xrdp.ini	2020-09-04 18:50:47.488472255 +0300
 @@ -144,9 +144,9 @@
  
  [Logging]
