@@ -60,6 +60,9 @@ if [ -e $CWD/${NAME}-${VERSION}.diff ]; then
 fi
 
 # Configure
+# Run autoreconf to apply the patch on configure.ac
+# See See https://github.com/neutrinolabs/xrdp/issues/1678
+autoreconf -vif || exit 5
 CONFFLAGS=" --build=${ARCH}-slackware-linux \
             --host=${ARCH}-slackware-linux \
             --prefix=/usr \
