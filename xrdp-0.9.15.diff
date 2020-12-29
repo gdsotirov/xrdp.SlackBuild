@@ -1,10 +1,10 @@
-# Patch for 0.9.14 to adjust configuration
+# Patch for 0.9.15 to adjust configuration
 # - Remove -Werror compiler option
 #   See https://github.com/neutrinolabs/xrdp/issues/1678
 # - Adjust session manager logging configuration
-diff -urNad xrdp-0.9.14-orig/configure.ac xrdp-0.9.14/configure.ac
---- xrdp-0.9.14-orig/configure.ac	2020-08-31 09:06:13.000000000 +0300
-+++ xrdp-0.9.14/configure.ac	2020-09-04 19:29:51.470823199 +0300
+diff -urNad xrdp-0.9.15-orig/configure.ac xrdp-0.9.15/configure.ac
+--- xrdp-0.9.15-orig/configure.ac	2020-12-28 16:03:43.000000000 +0200
++++ xrdp-0.9.15/configure.ac	2020-12-29 22:30:43.293482339 +0200
 @@ -156,8 +156,8 @@
  AX_CFLAGS_WARN_ALL
  AX_APPEND_COMPILE_FLAGS([-Wwrite-strings])
@@ -16,9 +16,9 @@ diff -urNad xrdp-0.9.14-orig/configure.ac xrdp-0.9.14/configure.ac
  
  AM_COND_IF([XRDP_DEBUG],
    [AX_APPEND_COMPILE_FLAGS([-g -O0])],
-diff -urNad xrdp-0.9.14-orig/sesman/sesman.ini xrdp-0.9.14/sesman/sesman.ini
---- xrdp-0.9.14-orig/sesman/sesman.ini	2020-08-31 09:33:40.000000000 +0300
-+++ xrdp-0.9.14/sesman/sesman.ini	2020-09-04 19:28:08.571543227 +0300
+diff -urNad xrdp-0.9.15-orig/sesman/sesman.ini xrdp-0.9.15/sesman/sesman.ini
+--- xrdp-0.9.15-orig/sesman/sesman.ini	2020-12-28 16:06:46.000000000 +0200
++++ xrdp-0.9.15/sesman/sesman.ini	2020-12-29 22:33:24.276082010 +0200
 @@ -12,7 +12,7 @@
  ReconnectScript=reconnectwm.sh
  
@@ -28,30 +28,24 @@ diff -urNad xrdp-0.9.14-orig/sesman/sesman.ini xrdp-0.9.14/sesman/sesman.ini
  MaxLoginRetry=4
  TerminalServerUsers=tsusers
  TerminalServerAdmins=tsadmins
-@@ -65,9 +65,9 @@
- 
- [Logging]
- LogFile=xrdp-sesman.log
--LogLevel=DEBUG
-+LogLevel=INFO
- EnableSyslog=1
--SyslogLevel=DEBUG
-+SyslogLevel=INFO
- 
- ;
- ; Session definitions - startup command-line parameters for each session type
-diff -urNad xrdp-0.9.14-orig/xrdp/xrdp.ini xrdp-0.9.14/xrdp/xrdp.ini
---- xrdp-0.9.14-orig/xrdp/xrdp.ini	2020-08-31 09:33:40.000000000 +0300
-+++ xrdp-0.9.14/xrdp/xrdp.ini	2020-09-04 19:28:08.571543227 +0300
-@@ -144,9 +144,9 @@
- 
- [Logging]
- LogFile=xrdp.log
--LogLevel=DEBUG
-+LogLevel=INFO
+@@ -133,7 +133,7 @@
+ ; Note: Log levels can be any of: core, error, warning, info, debug, or trace
+ LogLevel=INFO
  EnableSyslog=true
--SyslogLevel=DEBUG
+-#SyslogLevel=INFO
 +SyslogLevel=INFO
- ; LogLevel and SysLogLevel could by any of: core, error, warning, info or debug
- 
- [Channels]
+ #EnableConsole=false
+ #ConsoleLevel=INFO
+ #EnableProcessId=false
+diff -urNad xrdp-0.9.15-orig/xrdp/xrdp.ini xrdp-0.9.15/xrdp/xrdp.ini
+--- xrdp-0.9.15-orig/xrdp/xrdp.ini	2020-12-28 16:06:46.000000000 +0200
++++ xrdp-0.9.15/xrdp/xrdp.ini	2020-12-29 22:33:49.574861959 +0200
+@@ -154,7 +154,7 @@
+ LogFile=xrdp.log
+ LogLevel=INFO
+ EnableSyslog=true
+-#SyslogLevel=INFO
++SyslogLevel=INFO
+ #EnableConsole=false
+ #ConsoleLevel=INFO
+ #EnableProcessId=false
