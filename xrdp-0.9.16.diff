@@ -1,24 +1,8 @@
-# Patch for 0.9.15 to adjust configuration
-# - Remove -Werror compiler option
-#   See https://github.com/neutrinolabs/xrdp/issues/1678
+# Patch for 0.9.16 to adjust configuration
 # - Adjust session manager logging configuration
-diff -urNad xrdp-0.9.15-orig/configure.ac xrdp-0.9.15/configure.ac
---- xrdp-0.9.15-orig/configure.ac	2020-12-28 16:03:43.000000000 +0200
-+++ xrdp-0.9.15/configure.ac	2020-12-29 22:30:43.293482339 +0200
-@@ -156,8 +156,8 @@
- AX_CFLAGS_WARN_ALL
- AX_APPEND_COMPILE_FLAGS([-Wwrite-strings])
- 
--AM_COND_IF([LINUX],
--  [AX_APPEND_COMPILE_FLAGS([-Werror])]) # bsd has warnings that have not been fixed yet
-+#AM_COND_IF([LINUX],
-+#  [AX_APPEND_COMPILE_FLAGS([-Werror])]) # bsd has warnings that have not been fixed yet
- 
- AM_COND_IF([XRDP_DEBUG],
-   [AX_APPEND_COMPILE_FLAGS([-g -O0])],
-diff -urNad xrdp-0.9.15-orig/sesman/sesman.ini xrdp-0.9.15/sesman/sesman.ini
---- xrdp-0.9.15-orig/sesman/sesman.ini	2020-12-28 16:06:46.000000000 +0200
-+++ xrdp-0.9.15/sesman/sesman.ini	2020-12-29 22:33:24.276082010 +0200
+diff -urNad xrdp-0.9.16-orig/sesman/sesman.ini xrdp-0.9.16/sesman/sesman.ini
+--- xrdp-0.9.16-orig/sesman/sesman.ini	2021-04-30 15:26:36.000000000 +0300
++++ xrdp-0.9.16/sesman/sesman.ini	2021-05-05 11:00:45.014761602 +0300
 @@ -12,7 +12,7 @@
  ReconnectScript=reconnectwm.sh
  
@@ -37,9 +21,9 @@ diff -urNad xrdp-0.9.15-orig/sesman/sesman.ini xrdp-0.9.15/sesman/sesman.ini
  #EnableConsole=false
  #ConsoleLevel=INFO
  #EnableProcessId=false
-diff -urNad xrdp-0.9.15-orig/xrdp/xrdp.ini xrdp-0.9.15/xrdp/xrdp.ini
---- xrdp-0.9.15-orig/xrdp/xrdp.ini	2020-12-28 16:06:46.000000000 +0200
-+++ xrdp-0.9.15/xrdp/xrdp.ini	2020-12-29 22:33:49.574861959 +0200
+diff -urNad xrdp-0.9.16-orig/xrdp/xrdp.ini xrdp-0.9.16/xrdp/xrdp.ini
+--- xrdp-0.9.16-orig/xrdp/xrdp.ini	2021-04-30 15:26:36.000000000 +0300
++++ xrdp-0.9.16/xrdp/xrdp.ini	2021-05-05 11:00:45.014761602 +0300
 @@ -154,7 +154,7 @@
  LogFile=xrdp.log
  LogLevel=INFO
