@@ -43,6 +43,7 @@ config etc/xrdp/km-00000813.ini.new
 config etc/xrdp/km-00000816.ini.new
 config etc/xrdp/km-0000100c.ini.new
 config etc/xrdp/km-00010409.ini.new
+config etc/xrdp/km-19360409.ini.new
 config etc/xrdp/pulse/default.pa.new
 config etc/xrdp/reconnectwm.sh.new
 config etc/xrdp/sesman.ini.new
