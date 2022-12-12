@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # Slackware build script for xrdp
-# Copyright (C) 2020-2021 Georgi D. Sotirov <gdsotirov@gmail.com>
+# Copyright (C) 2020-2022 Georgi D. Sotirov <gdsotirov@gmail.com>
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -32,12 +32,12 @@ CWD=${CWD:-`pwd`}
 PKG_DIR=${PKG_DIR:-/tmp}
 
 if [ ! -e $TMP ]; then
-  mkdir -p $TMP # location to build the source
+  mkdir --parents $TMP # location to build the source
 fi
 
 SRC=$TMP/${NAME}-${VERSION}
 if [ -e $SRC -a -d $SRC ]; then
-  echo "Source directory '$SRC' already exists! Plaese, move it or remove it."
+  echo "Source directory '$SRC' already exists! Please, move it or remove it."
   exit 1
 fi
 
@@ -46,25 +46,25 @@ if [ -e $PKG -a -d $PKG ]; then
   echo "Package creation directory '$PKG' already exists! Please, move it or remove it."
   exit 2
 fi
-mkdir -p $PKG
+mkdir --parents $PKG
 
 # Extract the source
 cd $TMP
-tar -xvf $CWD/${NAME}-${VERSION}.tar.gz || exit 3
+tar --extract --verbose --file=$CWD/${NAME}-${VERSION}.tar.gz || exit 3
 cd $SRC
 fix_source
 
 # Apply patch
 if [ -e $CWD/${NAME}-${VERSION}.diff ]; then
-  patch -p1 -b -z.orig < $CWD/${NAME}-${VERSION}.diff || exit 4
+  patch --backup --strip=1 --suffix=.orig < $CWD/${NAME}-${VERSION}.diff || exit 4
 fi
 
 # Configure
 # Run autoreconf to apply the patch on configure.ac
 # See See https://github.com/neutrinolabs/xrdp/issues/1678
-autoreconf -vif || exit 5
-CONFFLAGS=" --build=${ARCH}-slackware-linux \
-            --host=${ARCH}-slackware-linux \
+autoreconf --force --install --verbose || exit 5
+CONFFLAGS=" --build="${ARCH}-slackware-linux" \
+            --host="${ARCH}-slackware-linux" \
             --prefix=/usr \
             --libdir=/usr/lib${LIBDIRSUFFIX} \
             --sysconfdir=/etc \
@@ -98,15 +98,16 @@ cd librfxcodec && ./configure \
             --enable-static=yes && cd .. || exit 62
 
 # Build & install
-make -j4 || exit 7
+make --jobs || exit 7
 make DESTDIR=$PKG install || exit 8
 # Move init script in the right place
-install -m 755 -d $PKG/etc/rc.d
-install -m 644 -p $CWD/rc.${NAME} $PKG/etc/rc.d/rc.${NAME}.new
-rm -rf $PKG/etc/init.d
+install --mode 755 --directory $PKG/etc/rc.d
+install --mode 644 --preserve-timestamps \
+        $CWD/rc.${NAME} $PKG/etc/rc.d/rc.${NAME}.new
+rm --force --recursive $PKG/etc/init.d
 # Remove generated certificate, key and security keys
 # These would be generated on package installation
-( cd $PKG/etc/${NAME}; rm -f cert.pem key.pem rsakeys.ini )
+( cd $PKG/etc/${NAME}; rm --force cert.pem key.pem rsakeys.ini )
 # Avoid clobbering configuration files
 for ini_file in $PKG/etc/${NAME}/*.ini; do
   mv "${ini_file}" "${ini_file}.new"
@@ -120,7 +121,7 @@ done
 ( cd $PKG/etc/pam.d
   mv ${NAME}-sesman ${NAME}-sesman.new )
 # Create log directory
-install -m 755 -d $PKG/var/log
+install --mode 755 --directory $PKG/var/log
 
 # Prepare the package
 bin_perms $PKG
@@ -132,37 +133,47 @@ create_docs $PKG ${NAME}-${VERSION}
 ( cd $PKG/usr/doc/${NAME}-${VERSION}
   mv README.md README )
 
-install -m 755 -d $PKG/install
-install -m 644 -p $CWD/doinst.sh      $PKG/install/doinst.sh
-install -m 644 -p $CWD/slack-desc     $PKG/install/slack-desc
-install -m 644 -p $CWD/slack-required $PKG/install/slack-required
-install -m 644 -p $CWD/slack-suggests $PKG/install/slack-suggests
+install --mode 755 --directory $PKG/install
+install --mode 644 --preserve-timestamps \
+        $CWD/doinst.sh      $PKG/install/doinst.sh
+install --mode 644 --preserve-timestamps \
+        $CWD/slack-desc     $PKG/install/slack-desc
+install --mode 644 --preserve-timestamps \
+        $CWD/slack-required $PKG/install/slack-required
+install --mode 644 --preserve-timestamps \
+        $CWD/slack-suggests $PKG/install/slack-suggests
 
 SBDIR=$PKG/usr/src/slackbuilds/${NAME}-${VERSION}
-install -m 755 -d $SBDIR
-install -m 644 -p $CWD/COPYING                 $SBDIR/COPYING
-install -m 644 -p $CWD/README                  $SBDIR/README
-install -m 644 -p $CWD/doinst.sh               $SBDIR/doinst.sh
-install -m 644 -p $CWD/slack-desc              $SBDIR/slack-desc
-install -m 644 -p $CWD/slack-required          $SBDIR/slack-required
-install -m 644 -p $CWD/slack-suggests          $SBDIR/slack-suggests
+install --mode 755 --directory $SBDIR
+install --mode 644 --preserve-timestamps \
+        $CWD/COPYING                 $SBDIR/COPYING
+install --mode 644 --preserve-timestamps \
+        $CWD/README                  $SBDIR/README
+install --mode 644 --preserve-timestamps \
+        $CWD/doinst.sh               $SBDIR/doinst.sh
+install --mode 644 --preserve-timestamps \
+        $CWD/slack-desc              $SBDIR/slack-desc
+install --mode 644 --preserve-timestamps \
+        $CWD/slack-required          $SBDIR/slack-required
+install --mode 644 --preserve-timestamps \
+        $CWD/slack-suggests          $SBDIR/slack-suggests
 if [ -e $CWD/${NAME}-${VERSION}.diff ]; then
-install -m 644 -p $CWD/${NAME}-${VERSION}.diff $SBDIR/${NAME}-${VERSION}.diff
+install --mode 644 --preserve-timestamps \
+        $CWD/${NAME}-${VERSION}.diff $SBDIR/${NAME}-${VERSION}.diff
 fi
-install -m 644 -p $CWD/${NAME}.SlackBuild      $SBDIR/${NAME}.SlackBuild
+install --mode 644 --preserve-timestamps \
+        $CWD/${NAME}.SlackBuild      $SBDIR/${NAME}.SlackBuild
 
 # Create package
 cd $PKG
 PKGNAME=${NAME}-${VERSION}-${ARCH}-${BUILD}${MYIN}
-makepkg -l y -c n -p $PKG_DIR/${PKGNAME}.txz
-( cd $PKG_DIR
-  md5sum ${PKGNAME}.txz > ${PKGNAME}.txz.md5
-  cat $PKG/install/slack-desc > $PKG_DIR/${PKGNAME}.txt
-)
+makepkg --chown n --linkadd y $PKG_DIR/${PKGNAME}.txz
+md5sum $PKG_DIR/${PKGNAME}.txz > $PKG_DIR/${PKGNAME}.txz.md5
+install --mode 644 $PKG/install/slack-desc $PKG_DIR/${PKGNAME}.txt
 
 # Clean Up
 if [ "$1" == "--cleanup" ]; then
-  rm -r $SRC
-  rm -r $PKG
+  rm --recursive $SRC
+  rm --recursive $PKG
 fi
 
