@@ -13,7 +13,7 @@ config() {
 
 # Keep same perms on rc.xrdp.new:
 if [ -e etc/rc.d/rc.xrdp ]; then
-  cp -a etc/rc.d/rc.xrdp etc/rc.d/rc.xrdp.new.incoming
+  cp --archive etc/rc.d/rc.xrdp etc/rc.d/rc.xrdp.new.incoming
   cat etc/rc.d/rc.xrdp.new > etc/rc.d/rc.xrdp.new.incoming
   mv etc/rc.d/rc.xrdp.new.incoming etc/rc.d/rc.xrdp.new
 fi
@@ -56,10 +56,10 @@ config etc/xrdp/xrdp_keyboard.ini.new
 # See https://github.com/neutrinolabs/xrdp/blob/1c4e14415d923666ac60cb77c7e753ca24e0268d/keygen/Makefile.am#L20
 umask 077 && \
 if [ ! -f etc/xrdp/rsakeys.ini ]; then \
-  xrdp-keygen xrdp auto; \
+  /usr/bin/xrdp-keygen xrdp auto; \
 fi && \
 if [ ! -f etc/xrdp/cert.pem ]; then \
-  openssl req -x509 -newkey rsa:2048 -sha256 -nodes \
+  /usr/bin/openssl req -x509 -newkey rsa:2048 -sha256 -nodes \
   -keyout etc/xrdp/key.pem -out etc/xrdp/cert.pem -days 365 \
   -subj /C=US/ST=CA/L=Sunnyvale/O=xrdp/CN=www.xrdp.org \
   -config /etc/ssl/openssl.cnf; \
