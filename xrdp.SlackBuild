@@ -167,7 +167,7 @@ install --mode 644 --preserve-timestamps \
 # Create package
 cd $PKG
 PKGNAME=${NAME}-${VERSION}-${ARCH}-${BUILD}${MYIN}
-makepkg --chown n --linkadd y $PKG_DIR/${PKGNAME}.txz
+makepkg --chown n --linkadd y --prepend $PKG_DIR/${PKGNAME}.txz
 md5sum $PKG_DIR/${PKGNAME}.txz > $PKG_DIR/${PKGNAME}.txz.md5
 install --mode 644 $PKG/install/slack-desc $PKG_DIR/${PKGNAME}.txt
 
