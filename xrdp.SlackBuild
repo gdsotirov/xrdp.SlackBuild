@@ -23,7 +23,7 @@
 . ../../slack-package.conf
 
 NAME=xrdp
-VERSION=0.9.21
+VERSION=0.9.21.1
 BUILD=${BUILD:-1}
 ARCH=${ARCH:-i586}
 
@@ -51,11 +51,6 @@ mkdir --parents $PKG
 # Extract the source
 cd $TMP
 tar --extract --verbose --file=$CWD/${NAME}-${VERSION}.tar.gz || exit 3
-# Get missing xrdp-sesman.system file
-# See https://github.com/neutrinolabs/xrdp/issues/2466
-SESMAN_SYSTEM=instfiles/pam.d/xrdp-sesman.system
-curl --output $SRC/${SESMAN_SYSTEM} --silent \
-     https://raw.githubusercontent.com/neutrinolabs/${NAME}/v0.9/${SESMAN_SYSTEM} || exit 31
 cd $SRC
 fix_source
 
