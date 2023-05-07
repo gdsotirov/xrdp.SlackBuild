@@ -1,8 +1,8 @@
-# Patch for 0.9.21 to adjust configuration
+# Patch for 0.9.22 to adjust configuration
 # - Adjust session manager logging configuration
-diff -urNad xrdp-0.9.21-orig/sesman/sesman.ini xrdp-0.9.21/sesman/sesman.ini
---- xrdp-0.9.21-orig/sesman/sesman.ini	2022-12-10 14:18:35.000000000 +0200
-+++ xrdp-0.9.21/sesman/sesman.ini	2022-12-12 20:57:50.171205682 +0200
+diff -urNad xrdp-0.9.22-orig/sesman/sesman.ini xrdp-0.9.22/sesman/sesman.ini
+--- xrdp-0.9.22-orig/sesman/sesman.ini	2023-05-07 08:53:57.000000000 +0300
++++ xrdp-0.9.22/sesman/sesman.ini	2023-05-07 11:21:29.488498569 +0300
 @@ -12,7 +12,7 @@
  ReconnectScript=reconnectwm.sh
  
@@ -21,9 +21,9 @@ diff -urNad xrdp-0.9.21-orig/sesman/sesman.ini xrdp-0.9.21/sesman/sesman.ini
  #EnableConsole=false
  #ConsoleLevel=INFO
  #EnableProcessId=false
-diff -urNad xrdp-0.9.21-orig/xrdp/xrdp.ini xrdp-0.9.21/xrdp/xrdp.ini
---- xrdp-0.9.21-orig/xrdp/xrdp.ini	2022-12-10 14:18:35.000000000 +0200
-+++ xrdp-0.9.21/xrdp/xrdp.ini	2022-12-12 20:45:03.544277878 +0200
+diff -urNad xrdp-0.9.22-orig/xrdp/xrdp.ini xrdp-0.9.22/xrdp/xrdp.ini
+--- xrdp-0.9.22-orig/xrdp/xrdp.ini	2023-05-07 08:53:57.000000000 +0300
++++ xrdp-0.9.22/xrdp/xrdp.ini	2023-05-07 11:21:29.488498569 +0300
 @@ -181,7 +181,7 @@
  LogFile=xrdp.log
  LogLevel=INFO
