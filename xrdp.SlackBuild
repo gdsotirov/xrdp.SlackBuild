@@ -23,7 +23,7 @@
 . ../../slack-package.conf
 
 NAME=xrdp
-VERSION=0.9.22
+VERSION=0.9.22.1
 BUILD=${BUILD:-1}
 ARCH=${ARCH:-i586}
 
