@@ -1,8 +1,6 @@
-# Patch for 0.9.22 to adjust configuration
-# - Adjust session manager logging configuration
-diff -urNad xrdp-0.9.22-orig/sesman/sesman.ini xrdp-0.9.22/sesman/sesman.ini
---- xrdp-0.9.22-orig/sesman/sesman.ini	2023-05-07 08:53:57.000000000 +0300
-+++ xrdp-0.9.22/sesman/sesman.ini	2023-05-07 11:21:29.488498569 +0300
+diff -urNad xrdp-0.9.23.1-orig/sesman/sesman.ini xrdp-0.9.23.1/sesman/sesman.ini
+--- xrdp-0.9.23.1-orig/sesman/sesman.ini	2023-09-27 21:00:00.000000000 +0300
++++ xrdp-0.9.23.1/sesman/sesman.ini	2023-10-01 15:00:27.483152567 +0300
 @@ -12,7 +12,7 @@
  ReconnectScript=reconnectwm.sh
  
@@ -12,7 +10,7 @@ diff -urNad xrdp-0.9.22-orig/sesman/sesman.ini xrdp-0.9.22/sesman/sesman.ini
  MaxLoginRetry=4
  TerminalServerUsers=tsusers
  TerminalServerAdmins=tsadmins
-@@ -154,7 +154,7 @@
+@@ -156,7 +156,7 @@
  ; Note: Log levels can be any of: core, error, warning, info, debug, or trace
  LogLevel=INFO
  EnableSyslog=true
@@ -21,9 +19,9 @@ diff -urNad xrdp-0.9.22-orig/sesman/sesman.ini xrdp-0.9.22/sesman/sesman.ini
  #EnableConsole=false
  #ConsoleLevel=INFO
  #EnableProcessId=false
-diff -urNad xrdp-0.9.22-orig/xrdp/xrdp.ini xrdp-0.9.22/xrdp/xrdp.ini
---- xrdp-0.9.22-orig/xrdp/xrdp.ini	2023-05-07 08:53:57.000000000 +0300
-+++ xrdp-0.9.22/xrdp/xrdp.ini	2023-05-07 11:21:29.488498569 +0300
+diff -urNad xrdp-0.9.23.1-orig/xrdp/xrdp.ini xrdp-0.9.23.1/xrdp/xrdp.ini
+--- xrdp-0.9.23.1-orig/xrdp/xrdp.ini	2023-09-27 21:00:00.000000000 +0300
++++ xrdp-0.9.23.1/xrdp/xrdp.ini	2023-10-01 15:00:27.609153059 +0300
 @@ -181,7 +181,7 @@
  LogFile=xrdp.log
  LogLevel=INFO
