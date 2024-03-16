@@ -1,6 +1,6 @@
-diff -urNad xrdp-0.9.24-orig/sesman/sesman.ini xrdp-0.9.24/sesman/sesman.ini
---- xrdp-0.9.24-orig/sesman/sesman.ini	2023-12-30 17:34:25.000000000 +0200
-+++ xrdp-0.9.24/sesman/sesman.ini	2024-01-28 14:43:06.885402484 +0200
+diff -urNad xrdp-0.9.25.1-orig/sesman/sesman.ini xrdp-0.9.25.1/sesman/sesman.ini
+--- xrdp-0.9.25.1-orig/sesman/sesman.ini	2024-03-13 12:00:02.000000000 +0200
++++ xrdp-0.9.25.1/sesman/sesman.ini	2024-03-16 10:47:07.573741863 +0200
 @@ -12,7 +12,7 @@
  ReconnectScript=reconnectwm.sh
  
@@ -19,9 +19,9 @@ diff -urNad xrdp-0.9.24-orig/sesman/sesman.ini xrdp-0.9.24/sesman/sesman.ini
  #EnableConsole=false
  #ConsoleLevel=INFO
  #EnableProcessId=false
-diff -urNad xrdp-0.9.24-orig/xrdp/xrdp.ini xrdp-0.9.24/xrdp/xrdp.ini
---- xrdp-0.9.24-orig/xrdp/xrdp.ini	2023-12-30 17:34:26.000000000 +0200
-+++ xrdp-0.9.24/xrdp/xrdp.ini	2024-01-28 14:43:07.254403681 +0200
+diff -urNad xrdp-0.9.25.1-orig/xrdp/xrdp.ini xrdp-0.9.25.1/xrdp/xrdp.ini
+--- xrdp-0.9.25.1-orig/xrdp/xrdp.ini	2024-03-13 12:00:02.000000000 +0200
++++ xrdp-0.9.25.1/xrdp/xrdp.ini	2024-03-16 10:47:08.109743538 +0200
 @@ -181,7 +181,7 @@
  LogFile=xrdp.log
  LogLevel=INFO
