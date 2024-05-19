@@ -1,6 +1,6 @@
-diff -urNad xrdp-0.9.25.1-orig/sesman/sesman.ini xrdp-0.9.25.1/sesman/sesman.ini
---- xrdp-0.9.25.1-orig/sesman/sesman.ini	2024-03-13 12:00:02.000000000 +0200
-+++ xrdp-0.9.25.1/sesman/sesman.ini	2024-03-16 10:47:07.573741863 +0200
+diff -urNad xrdp-0.10.0-orig/sesman/sesman.ini xrdp-0.10.0/sesman/sesman.ini
+--- xrdp-0.10.0-orig/sesman/sesman.ini	2024-05-10 17:14:05.000000000 +0300
++++ xrdp-0.10.0/sesman/sesman.ini	2024-05-19 13:32:16.911790706 +0300
 @@ -12,7 +12,7 @@
  ReconnectScript=reconnectwm.sh
  
@@ -10,7 +10,7 @@ diff -urNad xrdp-0.9.25.1-orig/sesman/sesman.ini xrdp-0.9.25.1/sesman/sesman.ini
  MaxLoginRetry=4
  TerminalServerUsers=tsusers
  TerminalServerAdmins=tsadmins
-@@ -156,7 +156,7 @@
+@@ -193,7 +193,7 @@
  ; Note: Log levels can be any of: core, error, warning, info, debug, or trace
  LogLevel=INFO
  EnableSyslog=true
@@ -19,10 +19,10 @@ diff -urNad xrdp-0.9.25.1-orig/sesman/sesman.ini xrdp-0.9.25.1/sesman/sesman.ini
  #EnableConsole=false
  #ConsoleLevel=INFO
  #EnableProcessId=false
-diff -urNad xrdp-0.9.25.1-orig/xrdp/xrdp.ini xrdp-0.9.25.1/xrdp/xrdp.ini
---- xrdp-0.9.25.1-orig/xrdp/xrdp.ini	2024-03-13 12:00:02.000000000 +0200
-+++ xrdp-0.9.25.1/xrdp/xrdp.ini	2024-03-16 10:47:08.109743538 +0200
-@@ -181,7 +181,7 @@
+diff -urNad xrdp-0.10.0-orig/xrdp/xrdp.ini xrdp-0.10.0/xrdp/xrdp.ini
+--- xrdp-0.10.0-orig/xrdp/xrdp.ini	2024-05-10 17:14:05.000000000 +0300
++++ xrdp-0.10.0/xrdp/xrdp.ini	2024-05-19 13:32:17.103791428 +0300
+@@ -198,7 +198,7 @@
  LogFile=xrdp.log
  LogLevel=INFO
  EnableSyslog=true
